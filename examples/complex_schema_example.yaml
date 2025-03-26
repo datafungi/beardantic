@@ -1,0 +1,188 @@
+name: complex_dataset
+description: A dataset with complex nested data structures
+
+tables:
+  - name: products
+    description: Product catalog with nested attributes
+    columns:
+      - name: id
+        type: int64
+        nullable: false
+        description: Unique product identifier
+      
+      - name: name
+        type: string
+        nullable: false
+        description: Product name
+      
+      - name: price
+        type: float64
+        nullable: false
+        description: Product price
+      
+      - name: attributes
+        type: struct
+        nullable: true
+        description: Product attributes as a struct
+        fields:
+          - name: color
+            type: string
+            nullable: true
+            description: Product color
+          
+          - name: weight
+            type: float32
+            nullable: true
+            description: Product weight in kg
+          
+          - name: dimensions
+            type: struct
+            nullable: true
+            description: Product dimensions
+            fields:
+              - name: length
+                type: float32
+                nullable: true
+                description: Length in cm
+              
+              - name: width
+                type: float32
+                nullable: true
+                description: Width in cm
+              
+              - name: height
+                type: float32
+                nullable: true
+                description: Height in cm
+      
+      - name: tags
+        type: list
+        element_type: string
+        nullable: true
+        description: List of product tags
+      
+      - name: variants
+        type: list
+        element_type: struct
+        nullable: true
+        description: List of product variants
+        fields:
+          - name: sku
+            type: string
+            nullable: false
+            description: Variant SKU
+          
+          - name: stock
+            type: int32
+            nullable: false
+            description: Available stock
+          
+          - name: price_adjustment
+            type: float32
+            nullable: true
+            description: Price adjustment for this variant
+  
+  - name: orders
+    description: Customer orders with nested line items
+    columns:
+      - name: order_id
+        type: string
+        nullable: false
+        description: Unique order identifier
+      
+      - name: customer_id
+        type: int64
+        nullable: false
+        description: Customer identifier
+      
+      - name: order_date
+        type: datetime
+        nullable: false
+        description: Date and time of the order
+      
+      - name: shipping_address
+        type: struct
+        nullable: false
+        description: Shipping address details
+        fields:
+          - name: street
+            type: string
+            nullable: false
+            description: Street address
+          
+          - name: city
+            type: string
+            nullable: false
+            description: City
+          
+          - name: state
+            type: string
+            nullable: false
+            description: State or province
+          
+          - name: postal_code
+            type: string
+            nullable: false
+            description: Postal code
+          
+          - name: country
+            type: string
+            nullable: false
+            description: Country
+      
+      - name: line_items
+        type: list
+        element_type: struct
+        nullable: false
+        description: List of order line items
+        fields:
+          - name: product_id
+            type: int64
+            nullable: false
+            description: Product identifier
+          
+          - name: quantity
+            type: int32
+            nullable: false
+            description: Quantity ordered
+          
+          - name: unit_price
+            type: float64
+            nullable: false
+            description: Unit price at time of order
+          
+          - name: discounts
+            type: list
+            element_type: struct
+            nullable: true
+            description: List of applied discounts
+            fields:
+              - name: code
+                type: string
+                nullable: true
+                description: Discount code
+              
+              - name: amount
+                type: float32
+                nullable: false
+                description: Discount amount
+      
+      - name: payment_info
+        type: struct
+        nullable: true
+        description: Payment information
+        fields:
+          - name: method
+            type: string
+            nullable: false
+            description: Payment method
+          
+          - name: status
+            type: string
+            nullable: false
+            description: Payment status
+          
+          - name: transaction_id
+            type: string
+            nullable: true
+            description: Payment transaction ID

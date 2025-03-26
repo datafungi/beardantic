@@ -1,0 +1,51 @@
+name: sample_dataset
+description: A sample dataset with two tables
+
+tables:
+  - name: users
+    description: User information table
+    columns:
+      - name: id
+        type: int64
+        nullable: false
+        description: Unique identifier for users
+      - name: name
+        type: string
+        nullable: false
+        description: User's full name
+      - name: email
+        type: string
+        nullable: true
+        description: User's email address
+      - name: age
+        type: int32
+        nullable: true
+        description: User's age in years
+      - name: active
+        type: boolean
+        nullable: false
+        description: Whether the user is active
+  
+  - name: orders
+    description: User orders table
+    columns:
+      - name: order_id
+        type: int64
+        nullable: false
+        description: Unique identifier for orders
+      - name: user_id
+        type: int64
+        nullable: false
+        description: Reference to users.id
+      - name: order_date
+        type: datetime
+        nullable: false
+        description: Date and time when the order was placed
+      - name: total_amount
+        type: float64
+        nullable: false
+        description: Total order amount
+      - name: items
+        type: list
+        nullable: true
+        description: List of items in the order

@@ -1,0 +1,31 @@
+import polars as pl
+from typing import Dict, Type
+
+POLARS_DATA_TYPES: Dict[str, Type] = {
+    "boolean": pl.Boolean,
+    "integer": pl.Int64,
+    "int8": pl.Int8,
+    "int16": pl.Int16,
+    "int32": pl.Int32,
+    "int64": pl.Int64,
+    "uint8": pl.UInt8,
+    "uint16": pl.UInt16,
+    "uint32": pl.UInt32,
+    "uint64": pl.UInt64,
+    "float": pl.Float64,
+    "float32": pl.Float32,
+    "float64": pl.Float64,
+    "string": pl.String,
+    "binary": pl.Binary,
+    "date": pl.Date,
+    "time": pl.Time,
+    "datetime": pl.Datetime,
+    "duration": pl.Duration,
+    "list": pl.List,
+    "struct": pl.Struct,
+    "categorical": pl.Categorical,
+    "null": pl.Null,
+    "unknown": pl.Unknown,
+    "decimal": pl.Decimal,
+    "object": pl.Object,
+}
