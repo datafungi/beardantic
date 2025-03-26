@@ -8,6 +8,7 @@ This example shows how to:
 """
 
 import logging
+from pathlib import Path
 import polars as pl
 
 from beardantic import (
@@ -32,7 +33,7 @@ df = pl.DataFrame(
 )
 
 # Path to the schema file
-schema_path = "examples/schema.yaml"
+schema_path = str(Path(__file__).parent.parent / "schemas" / "schema_example.yaml")
 
 try:
     # Parse the schema from YAML

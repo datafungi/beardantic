@@ -8,7 +8,7 @@ sys.path.append(str(Path.cwd()))
 from src.beardantic.schema import parse_yaml_schema, validate_dataframe
 
 # Path to the example schema YAML file
-schema_path = Path(__file__).parent / "schema_example.yaml"
+schema_path = Path(__file__).parent.parent / "schemas" / "schema_example.yaml"
 
 # Parse the schema from the YAML file
 dataset_schema = parse_yaml_schema(schema_path)

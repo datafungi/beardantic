@@ -10,7 +10,7 @@ import yaml
 from pydantic import ValidationError
 
 from .exceptions import SchemaValidationError
-from .logging_config import get_logger
+from .logging import get_logger
 from .models import ColumnSchema, DatasetSchema, NestedField, SchemaField, TableSchema
 from .validators import validate_dataframe
 

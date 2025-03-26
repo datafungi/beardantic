@@ -10,7 +10,7 @@ from .schema import parse_yaml_schema
 from .validators import validate_dataframe
 
 # Configure package logging
-from .logging_config import configure_logging
+from .logging import configure_logging
 
 # Define public API
 __all__ = [

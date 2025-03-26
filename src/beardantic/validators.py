@@ -6,7 +6,7 @@ from typing import List
 import polars as pl
 
 from .exceptions import SchemaValidationError
-from .logging_config import get_logger
+from .logging import get_logger
 from .models import SchemaField, TableSchema
 
 # Configure logger
