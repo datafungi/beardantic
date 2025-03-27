@@ -25,7 +25,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "polars", specifier = ">=1.26.0" },
-    { name = "pyarrow", specifier = ">=19.0.1" },
+    { name = "pyarrow", specifier = ">=19.0.0" },
     { name = "pydantic", specifier = ">=2.10.6" },
     { name = "pyyaml", specifier = ">=6.0.2" },
 ]
