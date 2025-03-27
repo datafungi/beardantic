@@ -83,13 +83,38 @@ class TableSchema(BaseModel):
     description: Optional[str] = None
     columns: List[SchemaField]
 
-    def to_polars_schema(self) -> Dict[str, pl.DataType]:
-        """Convert the table schema to a Polars schema dictionary."""
-        schema = {}
+    def to_polars_schema(self) -> pl.Schema:
+        """Convert the table schema to a Polars Schema object.
+        
+        Returns:
+            pl.Schema: A Polars Schema object that can be used to create DataFrames
+            
+        Example:
+            ```python
+            df = pl.DataFrame(data, schema=table_schema.to_polars_schema())
+            ```
+        """
+        schema_dict = {}
         for col in self.columns:
-            schema[col.name] = col.to_polars_type()
-        return schema
-
+            schema_dict[col.name] = col.to_polars_type()
+        return pl.Schema(schema_dict)
+        
+    def to_dict(self) -> Dict[str, pl.DataType]:
+        """Return a dictionary compatible with Polars' schema argument.
+        
+        Returns:
+            Dict[str, pl.DataType]: A dictionary mapping column names to Polars data types
+        
+        Example:
+            ```python
+            df = pl.DataFrame(data, schema=table_schema.to_dict())
+            ```
+        """
+        schema_dict = {}
+        for col in self.columns:
+            schema_dict[col.name] = col.to_polars_type()
+        return schema_dict
+        
 
 class DatasetSchema(BaseModel):
     """Schema definition for a collection of Polars DataFrames."""
@@ -97,3 +122,32 @@ class DatasetSchema(BaseModel):
     name: str
     description: Optional[str] = None
     tables: List[TableSchema]
+    
+    def select(self, table_name: str) -> TableSchema:
+        """Select a specific table schema by name.
+        
+        Args:
+            table_name: Name of the table to select
+            
+        Returns:
+            TableSchema: The selected table schema
+            
+        Raises:
+            ValueError: If the table name is not found in the dataset
+            
+        Example:
+            ```python
+            dataset_schema = parse_yaml_schema(schema_path)
+            orders_schema = dataset_schema.select("orders")
+            ```
+        """
+        for table in self.tables:
+            if table.name == table_name:
+                return table
+        
+        # If we get here, the table was not found
+        available_tables = [table.name for table in self.tables]
+        raise ValueError(
+            f"Table '{table_name}' not found in dataset '{self.name}'. "
+            f"Available tables: {', '.join(available_tables)}"
+        )
